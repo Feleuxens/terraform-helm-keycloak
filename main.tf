@@ -44,12 +44,12 @@ resource "kubernetes_ingress" "redirect_ingress" {
     name = "redirect-ingress"
     annotations = {
       "kubernetes.io/ingress.class"                    = "nginx"
-      "nginx.ingress.kubernetes.io/permanent-redirect" = "https://id.${domain}/realms/users/account"
+      "nginx.ingress.kubernetes.io/permanent-redirect" = "https://id.${var.domain}/realms/users/account"
     }
   }
   spec {
     rule {
-      host = "id.${domain}"
+      host = "id.${var.domain}"
       http {
         path {
           backend {
