@@ -41,7 +41,7 @@ resource "helm_release" "keycloak" {
 # ingress that redirect everything from id.${domain} to id.${domain}realms/users/account
 resource "kubernetes_ingress_v1" "redirect_ingress" {
   metadata {
-    name = "redirect-ingress"
+    name      = "redirect-ingress"
     namespace = helm_release.keycloak.namespace
     annotations = {
       "nginx.ingress.kubernetes.io/permanent-redirect" = "https://id.${var.domain}/realms/users/account"
@@ -55,17 +55,16 @@ resource "kubernetes_ingress_v1" "redirect_ingress" {
         path {
           backend {
             service {
-            name = "keycloak"
-            port {
-              name = "http"
-            }
+              name = "keycloak"
+              port {
+                name = "http"
+              }
             }
           }
-          path = "/"
+          path      = "/"
           path_type = "Exact"
         }
       }
     }
   }
-
 }
